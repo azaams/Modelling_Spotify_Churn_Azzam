@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Data%20Azzam/Kuli%20ah/SEMESTER%207/asah/Membangun%20Sistem%20ML/SMSML_Azzam%20Mujahid/Membangun_model/mlruns/276136771987853324/0663ba86c92c4cf08b4fb42f870841fd/artifacts
+end_time: 1766129825211
+entry_point_name: ''
+experiment_id: '276136771987853324'
+lifecycle_stage: active
+run_id: 0663ba86c92c4cf08b4fb42f870841fd
+run_name: RandomForest_Basic
+run_uuid: 0663ba86c92c4cf08b4fb42f870841fd
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1766129825068
+status: 3
+tags: []
+user_id: NITRO
