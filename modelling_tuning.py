@@ -20,7 +20,7 @@ TARGET_COLUMN = 'churned'
 def main():
     # Cek File Data
     if not os.path.exists(DATASET_PATH):
-        print(f"ERROR: File {DATASET_PATH} belum ada di folder ini!")
+        print(f"ERROR: File {DATASET_PATH} not found!")
         return
     # Inisialisasi DagsHub dan MLflow
     try:
@@ -54,7 +54,6 @@ def main():
         with mlflow.start_run(run_name=run_name):
             print(f"Training {run_name} -> {params}")
 
-            # A. Training
             model = RandomForestClassifier(
                 n_estimators=params['n_estimators'],
                 max_depth=params['max_depth'],
@@ -102,7 +101,7 @@ def main():
             fi_path = f"feature_importance_{i}.png"
             plt.savefig(fi_path)
             plt.close()
-            mlflow.log_artifact(fi_path) # Upload
+            mlflow.log_artifact(fi_path)
 
             if os.path.exists(cm_path): os.remove(cm_path)
             if os.path.exists(fi_path): os.remove(fi_path)
