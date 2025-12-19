@@ -22,9 +22,9 @@ def preprocess_data(df, target_column):
     # handling missing values
     for col in df.columns:
         if df[col].dtype == 'object':
-            df[col] = df[col].fillna(df[col].mode()[0])  # fill with mode for categorical
+            df[col] = df[col].fillna(df[col].mode()[0])
         else:
-            df[col] = df[col].fillna(df[col].median())  # fill with median for numerical
+            df[col] = df[col].fillna(df[col].median()) 
 
     # encoding categorical variables
     for col in df.select_dtypes(include=['object']).columns:
