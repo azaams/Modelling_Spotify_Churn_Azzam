@@ -18,6 +18,7 @@ RUN_NAME = 'RandomForest_Basic'
 
 def main():
     mlflow.set_experiment(EXPERIMENT_NAME)
+    mlflow.autolog()
 
     with mlflow.start_run(run_name=RUN_NAME) as run:
         print("Loading data...")
