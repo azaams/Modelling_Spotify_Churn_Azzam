@@ -3,7 +3,7 @@ import mlflow
 import mlflow.sklearn
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, confusion_matrix
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
@@ -18,7 +18,7 @@ RUN_NAME = 'RandomForest_Basic'
 
 def main():
     mlflow.set_experiment(EXPERIMENT_NAME)
-    mlflow.autolog()
+    mlflow.autolog()        
 
     with mlflow.start_run(run_name=RUN_NAME) as run:
         print("Loading data...")
@@ -39,11 +39,6 @@ def main():
         # Define hyperparameters
         n_estimators = 100
         max_depth = 10
-        
-        # Log hyperparameters
-        mlflow.log_param("n_estimators", n_estimators)
-        mlflow.log_param("max_depth", max_depth)
-        mlflow.log_param("dataset_source", "Spotify Churn Dataset")
 
         # Train Model
         model = RandomForestClassifier(n_estimators=n_estimators, max_depth=max_depth, random_state=42)
@@ -52,32 +47,11 @@ def main():
         # Evaluate Model
         y_pred = model.predict(X_test)
 
-        accuracy = accuracy_score(y_test, y_pred)
-        precision = precision_score(y_test, y_pred, average='macro')
-        recall = recall_score(y_test, y_pred, average='macro')
-
-        print(f"Accuracy: {accuracy}")
-        print(f"Precision: {precision}")
-        print(f"Recall: {recall}")
-
-        # Log metrics
-        mlflow.log_metric("accuracy", accuracy)
-        mlflow.log_metric("precision", precision)
-        mlflow.log_metric("recall", recall)
-
-        # Save model
-        signature = mlflow.models.infer_signature(X_train, model.predict(X_train))
-        mlflow.sklearn.log_model(
-            model, "model",
-            signature=signature,
-            input_example=X_train.iloc[:5]
-        )
-
         # Confusion Matrix
         cm = confusion_matrix(y_test, y_pred)
         plt.figure(figsize=(8, 6))
         sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-        plt.title(f'Confusion Matrix (Accuracy: {accuracy:.2f})')
+        plt.title('Confusion Matrix')
         plt.xlabel('Predicted')
         plt.ylabel('Actual')
 
